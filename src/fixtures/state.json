@@ -1,0 +1,52 @@
+{
+  "person": {
+    "preferences": [],
+    "constraints": [],
+    "current_edges": [
+      {
+        "id": "edge-local-novelty",
+        "domain": "local_discovery",
+        "description": "Choose a small unfamiliar route or place nearby",
+        "challenge": "edge",
+        "evidence_ids": []
+      }
+    ],
+    "excitement_threads": [
+      {
+        "id": "thread-photography",
+        "label": "noticing and photography",
+        "state": "Sparking",
+        "evidence_ids": [],
+        "confidence": 0.35
+      },
+      {
+        "id": "thread-walks",
+        "label": "wandering walks",
+        "state": "Glowing",
+        "evidence_ids": [],
+        "confidence": 0.45
+      }
+    ],
+    "domain_skill_estimates": {
+      "local_discovery": "beginner",
+      "photography": "beginner"
+    },
+    "challenge_preference": "edge"
+  },
+  "moment_state": {
+    "available_minutes": null,
+    "energy": null,
+    "budget": null,
+    "location": null,
+    "weather": null
+  },
+  "trip_state": null,
+  "atlas": {
+    "moments": [],
+    "firsts_crossings": [],
+    "collections": [],
+    "places": [],
+    "creations": [],
+    "evidence": []
+  }
+}
