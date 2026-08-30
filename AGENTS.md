@@ -11,13 +11,80 @@ LIVED has two primary movements:
 
 These are contexts of ONE head agent, not separate chatbot personalities.
 
-## Read first
-1. `CODEX_HANDOFF.md`
-2. `docs/product/PRODUCT_SPEC.md`
-3. `docs/architecture/SYSTEM_ARCHITECTURE.md`
-4. `core/constitutions/COACH_CONSTITUTION.md`
-5. `core/constitutions/LIFE_GAME_CONSTITUTION.md`
-6. `docs/exec-plans/active/MVP_PLAN.md`
+## First: recover only the context you can actually access
+Before changing code, recover the real project context as thoroughly as your current environment allows.
+
+Search all project, repository, attached, exported, and chat-history context that is actually available to you for relevant LIVED / Wayfinder / Wayshower / Van Clief material.
+
+Important search targets include:
+- Jake Van Clief / Van Clief
+- Model Workspace Protocol / MWP
+- Interpretable Context Methodology
+- folder-as-agent / folder structure as agentic architecture
+- single-head-agent architecture
+- context engineering
+- role files / AGENTS.md
+- Wayfinder / Wayshower / LIVED
+- Life Experience Engine / Experience Intelligence
+- coaching architecture / coaching posture
+- expert routing
+- Life DNA / Atlas / Travel DNA
+- surprise preservation
+- "research everything, spoil almost nothing"
+- "gamify the world, not the interface"
+- "follow threads; don't force trajectories"
+- "identity follows evidence"
+- "never tell someone who they are becoming when life can show them"
+- "more life from the life you have"
+
+### Critical epistemic rule
+Do not claim to have read, searched, or incorporated material your environment cannot actually access.
+
+If ChatGPT project history or conversation history is exposed to you, search it thoroughly.
+
+If only repository files are available, reconstruct the project from the repository, attached files, exports, handoffs, docs, and code.
+
+If conversation exports, historical design notes, or handoff files exist anywhere in the repository, inspect them.
+
+If expected context is missing, say exactly what is missing and continue from the available evidence.
+
+Do not fabricate missing conversations.
+
+The repository should become the durable, canonical representation of the important product and architecture conclusions, so future development does not depend on hidden chat memory.
+
+## Repository inspection
+After recovering available context, inspect the repository tree and read, at minimum:
+
+1. `AGENTS.md`
+2. `CODEX_HANDOFF.md`
+3. `README.md`
+4. `docs/product/PRODUCT_SPEC.md`
+5. `docs/architecture/SYSTEM_ARCHITECTURE.md`
+6. `docs/architecture/FRONTEND.md`
+7. `docs/research/INTELLECTUAL_FOUNDATIONS.md`
+8. `docs/exec-plans/active/MVP_PLAN.md`
+9. `core/constitutions/COACH_CONSTITUTION.md`
+10. `core/constitutions/LIFE_GAME_CONSTITUTION.md`
+11. `core/engines/EXCITEMENT_COMPASS.md`
+12. `core/engines/EXPERIENCE_ENGINE.md`
+13. `core/state/schema.example.json`
+14. `tests/acceptance/SCENARIOS.md`
+
+Also inspect:
+- existing source code
+- tests
+- configuration
+- migrations
+- dependencies
+- scripts
+- historical/legacy folders
+- architectural notes
+- TODOs
+- current git state
+
+Do not overwrite working code merely because you would design it differently.
+
+Determine what exists before deciding what is missing.
 
 ## Architectural rule
 Use **one head agent**. It dynamically chooses:
