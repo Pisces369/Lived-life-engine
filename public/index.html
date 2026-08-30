@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>LIVED Prototype</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <main class="shell">
+      <section class="intro">
+        <p class="eyebrow">LIVED</p>
+        <h1>What kind of day is available?</h1>
+        <p class="lede">A first local slice for “I have two hours and don't know what to do.”</p>
+      </section>
+
+      <section class="controls" aria-label="Moment context">
+        <label>
+          <span>Request</span>
+          <textarea id="requestText">I have two hours and don't know what to do.</textarea>
+        </label>
+        <div class="control-grid">
+          <label>
+            <span>Minutes</span>
+            <input id="minutes" type="number" min="15" step="15" value="120">
+          </label>
+          <label>
+            <span>Budget NOK</span>
+            <input id="budget" type="number" min="0" step="50" value="200">
+          </label>
+          <label>
+            <span>Energy</span>
+            <select id="energy">
+              <option value="medium">Medium</option>
+              <option value="low">Low</option>
+              <option value="depleted">Depleted</option>
+              <option value="high">High</option>
+            </select>
+          </label>
+        </div>
+        <button id="recommendButton">Recommend</button>
+      </section>
+
+      <section class="route" aria-live="polite">
+        <div>
+          <span>Movement</span>
+          <strong id="movement">-</strong>
+        </div>
+        <div>
+          <span>Posture</span>
+          <strong id="posture">-</strong>
+        </div>
+        <div>
+          <span>Verification</span>
+          <strong id="verification">fixture</strong>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-heading">
+          <p class="eyebrow">Opportunity Menu</p>
+          <h2>Small real-world options</h2>
+        </div>
+        <div id="cards" class="cards"></div>
+      </section>
+
+      <section class="state-panel">
+        <div>
+          <p class="eyebrow">What's Alive</p>
+          <h2>Evidence, not identity</h2>
+        </div>
+        <pre id="stateView"></pre>
+      </section>
+    </main>
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>
