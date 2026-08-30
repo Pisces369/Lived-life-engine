@@ -1,0 +1,25 @@
+{
+  "person": {
+    "preferences": [],
+    "constraints": [],
+    "current_edges": [],
+    "excitement_threads": [],
+    "domain_skill_estimates": {},
+    "challenge_preference": "edge"
+  },
+  "moment_state": {
+    "available_minutes": null,
+    "energy": null,
+    "budget": null,
+    "location": null,
+    "weather": null
+  },
+  "trip_state": null,
+  "atlas": {
+    "moments": [],
+    "firsts_crossings": [],
+    "collections": [],
+    "places": [],
+    "creations": []
+  }
+}
