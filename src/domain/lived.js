@@ -58,6 +58,7 @@ const DEFAULT_STATE = Object.freeze({
 const CANDIDATES = Object.freeze([
   {
     id: "right-here-threshold-walk",
+    surface: "RIGHT HERE",
     title: "Threshold walk",
     movement: "SEE",
     posture: "GUIDE",
@@ -74,6 +75,7 @@ const CANDIDATES = Object.freeze([
   },
   {
     id: "edge-one-new-place",
+    surface: "YOUR EDGE",
     title: "One unfamiliar table",
     movement: "BOTH",
     posture: "COACH",
@@ -90,6 +92,7 @@ const CANDIDATES = Object.freeze([
   },
   {
     id: "surprise-color-thread",
+    surface: "SURPRISE ME",
     title: "Follow one color",
     movement: "SEE",
     posture: "COMPANION",
@@ -106,6 +109,7 @@ const CANDIDATES = Object.freeze([
   },
   {
     id: "rest-soft-reset",
+    surface: "REST",
     title: "Soft reset",
     movement: "REST",
     posture: "NOTHING",
@@ -263,23 +267,29 @@ function selectCandidates(input, state, movement) {
 
   const scored = allowed.map((candidate) => ({
     ...candidate,
-    score: scoreCandidate(candidate, state, energy)
+    score: scoreCandidate(candidate, state, input, movement)
   })).sort((a, b) => b.score - a.score);
 
-  const hasRest = scored.some((candidate) => candidate.movement === "REST");
-  const top = scored.slice(0, 3);
-  if (!hasRest && movement !== "REST") {
-    top.push({ ...CANDIDATES.find((candidate) => candidate.movement === "REST"), score: 6.5 });
+  if (movement === "REST" || energy === "depleted") return scored.slice(0, 3);
+
+  const rest = scored.find((candidate) => candidate.movement === "REST")
+    ?? CANDIDATES.find((candidate) => candidate.movement === "REST");
+  const active = scored.filter((candidate) => candidate.movement !== "REST").slice(0, 3);
+
+  if (rest && !active.some((candidate) => candidate.id === rest.id)) {
+    active.push({ ...rest, score: Math.min(rest.score ?? 6.5, 6.5) });
   }
-  return top;
+
+  return active;
 }
 
-function scoreCandidate(candidate, state, energy) {
+function scoreCandidate(candidate, state, input, movement) {
   const base = candidate.scores.fit + candidate.scores.aliveness + candidate.scores.novelty + candidate.scores.rest;
   const cost = candidate.scores.attention_cost + candidate.scores.friction;
-  const energyPenalty = energy === "low" && candidate.energy === "medium" ? 2 : 0;
+  const energyPenalty = input.energy === "low" && candidate.energy === "medium" ? 2 : 0;
+  const restPenalty = candidate.movement === "REST" && movement !== "REST" && input.energy !== "depleted" ? 10 : 0;
   const threadBonus = state.person.excitement_threads.some((thread) => candidate.summary.toLowerCase().includes("walk") && thread.id === "thread-walks") ? 1 : 0;
-  return Number((base - cost - energyPenalty + threadBonus).toFixed(2));
+  return Number((base - cost - energyPenalty - restPenalty + threadBonus).toFixed(2));
 }
 
 function renderRecommendation(input, movement, posture, candidates) {
