@@ -14,7 +14,14 @@ describe("LIVED domain prototype", () => {
     assert.equal(result.verification.status, "fixture");
   });
 
-  it("keeps rest as a valid outcome when energy is depleted", () => {
+  it("keeps rest available without making it dominant on medium-energy days", () => {
+    const result = recommend({ text: "I have two hours and don't know what to do.", available_minutes: 120, budget_nok: 200, energy: "medium" });
+
+    assert.notEqual(result.candidates[0].movement, "REST");
+    assert.equal(result.candidates.at(-1).movement, "REST");
+  });
+
+  it("keeps rest as the first outcome when energy is depleted", () => {
     const result = recommend({ text: "I need rest today.", available_minutes: 120, budget_nok: 200, energy: "depleted" });
 
     assert.equal(result.route.movement, "REST");
