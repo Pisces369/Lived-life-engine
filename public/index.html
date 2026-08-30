@@ -8,68 +8,81 @@
   </head>
   <body>
     <main class="shell">
-      <section class="intro">
-        <p class="eyebrow">LIVED</p>
-        <h1>What kind of day is available?</h1>
-        <p class="lede">A first local slice for “I have two hours and don't know what to do.”</p>
-      </section>
-
-      <section class="controls" aria-label="Moment context">
-        <label>
-          <span>Request</span>
-          <textarea id="requestText">I have two hours and don't know what to do.</textarea>
-        </label>
-        <div class="control-grid">
-          <label>
-            <span>Minutes</span>
-            <input id="minutes" type="number" min="15" step="15" value="120">
-          </label>
-          <label>
-            <span>Budget NOK</span>
-            <input id="budget" type="number" min="0" step="50" value="200">
-          </label>
-          <label>
-            <span>Energy</span>
-            <select id="energy">
-              <option value="medium">Medium</option>
-              <option value="low">Low</option>
-              <option value="depleted">Depleted</option>
-              <option value="high">High</option>
-            </select>
-          </label>
-        </div>
-        <button id="recommendButton">Recommend</button>
-      </section>
-
-      <section class="route" aria-live="polite">
+      <header class="topbar">
         <div>
-          <span>Movement</span>
-          <strong id="movement">-</strong>
+          <p class="eyebrow">LIVED</p>
+          <h1>What kind of day is available?</h1>
         </div>
-        <div>
-          <span>Posture</span>
-          <strong id="posture">-</strong>
-        </div>
-        <div>
-          <span>Verification</span>
-          <strong id="verification">fixture</strong>
-        </div>
-      </section>
+        <section class="route" aria-live="polite" aria-label="System route">
+          <div>
+            <span>Movement</span>
+            <strong id="movement">-</strong>
+          </div>
+          <div>
+            <span>Posture</span>
+            <strong id="posture">-</strong>
+          </div>
+          <div>
+            <span>Verification</span>
+            <strong id="verification">fixture</strong>
+          </div>
+        </section>
+      </header>
 
-      <section>
-        <div class="section-heading">
-          <p class="eyebrow">Opportunity Menu</p>
-          <h2>Small real-world options</h2>
-        </div>
-        <div id="cards" class="cards"></div>
-      </section>
+      <section class="dashboard-grid">
+        <section class="primary-panel" aria-labelledby="opportunityHeading">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Opportunity Menu</p>
+              <h2 id="opportunityHeading">Small real-world options</h2>
+            </div>
+            <p id="recommendationLead" class="lead-note"></p>
+          </div>
+          <div id="cards" class="cards"></div>
+        </section>
 
-      <section class="state-panel">
-        <div>
-          <p class="eyebrow">What's Alive</p>
-          <h2>Evidence, not identity</h2>
-        </div>
-        <pre id="stateView"></pre>
+        <aside class="side-panel">
+          <section class="moment-context" aria-label="Moment context">
+            <div class="section-heading compact">
+              <div>
+                <p class="eyebrow">Moment Context</p>
+                <h2>Current ask</h2>
+              </div>
+            </div>
+            <label>
+              <span>Request</span>
+              <textarea id="requestText">I have two hours and don't know what to do.</textarea>
+            </label>
+            <div class="control-grid">
+              <label>
+                <span>Minutes</span>
+                <input id="minutes" type="number" min="15" step="15" value="120">
+              </label>
+              <label>
+                <span>Budget NOK</span>
+                <input id="budget" type="number" min="0" step="50" value="200">
+              </label>
+              <label>
+                <span>Energy</span>
+                <select id="energy">
+                  <option value="medium">Medium</option>
+                  <option value="low">Low</option>
+                  <option value="depleted">Depleted</option>
+                  <option value="high">High</option>
+                </select>
+              </label>
+            </div>
+            <button id="recommendButton">Refresh options</button>
+          </section>
+
+          <section class="alive-panel">
+            <div>
+              <p class="eyebrow">What's Alive</p>
+              <h2>Evidence, not identity</h2>
+            </div>
+            <div id="stateView" class="thread-list"></div>
+          </section>
+        </aside>
       </section>
     </main>
     <script type="module" src="/app.js"></script>
