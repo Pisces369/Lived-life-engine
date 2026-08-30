@@ -7,6 +7,7 @@ const cards = document.querySelector("#cards");
 const movement = document.querySelector("#movement");
 const posture = document.querySelector("#posture");
 const verification = document.querySelector("#verification");
+const recommendationLead = document.querySelector("#recommendationLead");
 const stateView = document.querySelector("#stateView");
 
 recommendButton.addEventListener("click", () => loadRecommendations());
@@ -32,15 +33,16 @@ async function loadRecommendations() {
   movement.textContent = result.route.movement;
   posture.textContent = result.route.posture;
   verification.textContent = result.verification.status;
+  recommendationLead.textContent = result.response.lead;
   cards.replaceChildren(...result.candidates.map(renderCard));
 }
 
-function renderCard(candidate) {
+function renderCard(candidate, index) {
   const article = document.createElement("article");
-  article.className = "card";
+  article.className = `card ${index === 0 ? "featured" : ""}`;
   article.innerHTML = `
     <div class="card-top">
-      <p>${candidate.movement}</p>
+      <p>${candidate.surface ?? candidate.movement}</p>
       <strong>${candidate.difficulty}</strong>
     </div>
     <h3>${candidate.title}</h3>
@@ -50,9 +52,12 @@ function renderCard(candidate) {
       <div><dt>Cost</dt><dd>${candidate.cost_nok} NOK</dd></div>
       <div><dt>Energy</dt><dd>${candidate.energy}</dd></div>
     </dl>
+    <details>
+      <summary>Why this?</summary>
+      <div class="reasons">${candidate.reason_codes.map((reason) => `<span>${formatReason(reason)}</span>`).join("")}</div>
+    </details>
     <p class="next">${candidate.next_step}</p>
-    <div class="reasons">${candidate.reason_codes.map((reason) => `<span>${reason.replaceAll("_", " ")}</span>`).join("")}</div>
-    <div class="feedback">
+    <div class="feedback" aria-label="Feedback for ${candidate.title}">
       <button data-feedback="more_alive">More alive</button>
       <button data-feedback="same">Same</button>
       <button data-feedback="less_alive">Less alive</button>
@@ -76,8 +81,28 @@ function renderCard(candidate) {
 async function loadState() {
   const response = await fetch("/api/state");
   const state = await response.json();
-  stateView.textContent = JSON.stringify({
-    threads: state.person.excitement_threads,
-    evidence_count: state.atlas.evidence.length
-  }, null, 2);
+  const evidenceCount = state.atlas.evidence.length;
+  const threads = state.person.excitement_threads.map((thread) => renderThread(thread, evidenceCount));
+
+  const evidence = document.createElement("article");
+  evidence.className = "thread-card quiet";
+  evidence.innerHTML = `<span>Evidence captured</span><strong>${evidenceCount}</strong><p>User feedback changes confidence slowly. No identity label is assigned.</p>`;
+
+  stateView.replaceChildren(...threads, evidence);
+}
+
+function renderThread(thread) {
+  const article = document.createElement("article");
+  article.className = "thread-card";
+  const confidence = Math.round((thread.confidence ?? 0) * 100);
+  article.innerHTML = `
+    <span>${thread.state}</span>
+    <strong>${thread.label}</strong>
+    <p>${thread.evidence_ids.length} evidence point${thread.evidence_ids.length === 1 ? "" : "s"}. Confidence ${confidence}%.</p>
+  `;
+  return article;
+}
+
+function formatReason(reason) {
+  return reason.replaceAll("_", " ");
 }
